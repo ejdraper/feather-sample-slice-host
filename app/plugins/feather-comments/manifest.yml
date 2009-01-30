@@ -1,0 +1,8 @@
+name: feather-comments
+version: 1.0
+homepage: http://featherblog.org
+author:
+    name: Michael Leung, El Draper
+    email: blamemike@gmail.com, el@eldiablo.co.uk
+    homepage: http://bloggingmyassoff.com, http://crazycool.co.uk
+about: This plugin provides the base commenting system for Feather.

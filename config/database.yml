@@ -1,0 +1,12 @@
+---
+development: &defaults
+  adapter:  sqlite3
+  database: db/feather_development.db
+test:
+  <<:       *defaults
+  database: db/feather_test.db
+production:
+  <<:       *defaults
+  database: db/feather_production.db
+rake:
+  <<: *defaults

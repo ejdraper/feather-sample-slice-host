@@ -1,0 +1,11 @@
+<p>
+  <b><%= article.title %></b>
+</p>
+
+<p>
+  <%= article.content %>
+</p>
+
+<p>
+  <i>Posted by <%= article.user.name %>, at <%= article.published_at.strftime("%H:%M:%S %d %b %Y") %></i>
+</p>

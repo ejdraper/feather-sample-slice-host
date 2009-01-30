@@ -1,0 +1,19 @@
+<% throw_content :right do %>
+  <h4>Other importers</h4>
+  <p>
+    <ul>
+      <li><%= link_to "Mephisto", url(:admin_mephisto) %></li>
+      <li><%= link_to "Typo", url(:admin_typo) %></li>
+    </ul>
+  </p>
+<% end %>
+
+<h1>Import existing content</h1>
+
+<%= form(:action => url(:admin_importer)) do %>
+	<%= text_field :name => "articles_url", :label => "Articles Feed" %><br />
+	<% if defined?(Feather::Comment) && is_plugin_active("feather-comments") %>
+		<%= text_field :name => "comments_url", :label => "Comments Feed" %><br />
+	<% end %>
+	<%= submit "Import" %>
+<% end =%>

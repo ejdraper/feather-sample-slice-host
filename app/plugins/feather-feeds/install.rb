@@ -1,0 +1,1 @@
+Feather::Database::migrate(Feather::FeedSetting)

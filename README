@@ -1,0 +1,18 @@
+README
+
+This is a sample host app to demonstrate running Feather as a slice. It includes a few plugins installed by default:
+	feather-comments
+	feather-feeds
+	feather-importers
+	feather-tagging
+	feather-themes
+
+The sqlite3 database file is included, so that this app should fire up and work straight away in development mode.
+
+The Feather blog admin username and password is "admin", and "password".
+
+It comes with an incredibly simple override theme by default, just to show how it works.
+
+The blog and the host app use different layouts, just to show that the layouts can be separated.
+
+You can use this as a base for building your own Feather powered apps. Any bugs/issues, please let me know by e-mailing me at el@ejdraper.com.

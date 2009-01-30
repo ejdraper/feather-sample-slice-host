@@ -1,0 +1,8 @@
+name: feather-tagging
+version: 1.0
+homepage: http://featherblog.org
+author:
+    name: AJ Christensen
+    email: aj@junglist.gen.nz 
+    homepage: http://junglist.gen.nz
+about: This plugin provides tag support to articles.
