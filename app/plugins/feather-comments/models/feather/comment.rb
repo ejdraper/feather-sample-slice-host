@@ -1,6 +1,12 @@
 module Feather
   class Comment
     include DataMapper::Resource
+
+    include Splam
+    splammable :comment do |splam|
+      splam.threshold  = 40
+      splam.rules     = [:bad_words, :html, :bbcode, :href]
+    end
     
     is_paginated
   
@@ -13,21 +19,33 @@ module Feather
     property :email_address, String
     property :formatter, String, :default => "default"
     property :ip_address, String, :default => "127.0.0.1"
-    property :published, Boolean, :default => true
-    # Gotta have this lame dummy property for the negative captcha
-    property :notes, String
   
     belongs_to :article
 
     validates_present :name, :comment, :article_id
 
+    before :save, :check_for_spam
+    def check_for_spam
+      throw :halt if self.splam?
+    end
+
     before :save, :prepend_http_if_needed
     belongs_to :article  
     after :save, :fire_after_comment_event
     after :create, :set_create_activity
+    after :save, :expire_cache
+    after :destroy, :expire_cache
+    
+    # Dummy honeypot propery
+    attr_accessor :title
+    
+    # This expires the article page that the comment belongs to
+    def expire_cache
+      Feather::Article.expire_article_page(self.article_id)
+    end
 
     def self.all_for_post(article_id, method = :all)
-      self.send(method, {:article_id => article_id, :published => true, :order => [:created_at.asc]})
+      self.send(method, {:article_id => article_id, :order => [:created_at.asc]})
     end
 
     ##

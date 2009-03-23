@@ -8,13 +8,13 @@
   </head>
   <body>
     <%#= message[:notice] %>
-    <h1><%= @settings.title %></h1>
-    <h3><%= @settings.tag_line %></h3>
+    <h1><%= @settings[:title] %></h1>
+    <h3><%= @settings[:tag_line] %></h3>
     Click <%= link_to "here", "/" %> to return to the host app. Click <%= link_to "here", "/blog/admin" %> for the blog admin.
     <br /><br />
     <%= catch_content :for_layout %>
     <br /><br />
-    <b>About this blog: <%= @settings.about %></b>
+    <b>About this blog: <%= @settings[:about] %></b>
     <br />
     Articles: (<%= link_to "RSS", url(:feeds, :action => :articles, :format => :rss) %>|<%= link_to "Atom", url(:feeds, :action => :articles, :format => :atom) %>)
   </body>

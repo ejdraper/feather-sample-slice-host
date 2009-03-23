@@ -10,6 +10,38 @@ end
 Feather::Article.class_eval do
   include DataMapper::Tags
   has_tags
+  
+  after :save, :update_tags
+  after :destroy, :update_tags
+  
+  def update_tags
+    Merb::Cache[:feather].delete "#{Tag.name}"
+    Merb::Cache[:feather].delete "#{Tagging.name}"
+  end
+end
+
+Feather::Application.class_eval do
+  before :grab_tags
+  
+  def grab_tags
+    @tags = Merb::Cache[:feather].fetch "#{Tag.name}" do
+      Tag.all.collect { |t| t.attributes.merge(:display_name => t.display_name) }
+    end
+    @taggings = Merb::Cache[:feather].fetch "#{Tagging.name}" do
+      Tagging.all.collect { |t| t.attributes }
+    end
+  end
+end
+
+Tag.class_eval do
+  before :save, :no_spaces
+  def no_spaces
+    self.name.gsub!(" ", "-")
+  end
+  
+  def display_name
+    self.name.gsub("-", " ")
+  end
 end
 
 Feather::Hooks::Routing.register_route do |r|
